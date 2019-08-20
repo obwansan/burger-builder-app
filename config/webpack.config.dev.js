@@ -168,6 +168,7 @@ module.exports = {
                   importLoaders: 1,
                   // Setting up CSS modules
                   modules: true,
+                  // [name of file]__[name of css class]__[hash]
                   localIdentName: '[name]__[local]__[hash:base64:5]'
                 },
               },
