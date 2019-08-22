@@ -11,12 +11,24 @@ const burger = (props) => {
   // the number of undefined element placeholders in each array.
   // The key is that the nested .map runs on the array created by the last outer .map loop BEFORE
   // the outer .map loop moves to the next ingredients key.
-  const transformedIngredients = Object.keys(props.ingredients)
+  let transformedIngredients = Object.keys(props.ingredients)
     .map(igKey => {
       return [...Array(props.ingredients[igKey])].map((_, i) => {
         return <BurgerIngredient key={igKey + i} type={igKey} />
       }); 
-    });
+    })
+    // On each loop it returns the container array with the nested array merged into it
+    // i.e. moves the nested array's elements into the container array. So we end up with 
+    // a single array of JSX objects rather than an array of arrays containing JSX objects.
+    .reduce((arr, el) => {
+      return arr.concat(el)
+    }, []);
+
+    if (transformedIngredients.length === 0) {
+      transformedIngredients = <p>Please start adding ingredients</p>
+    }
+
+    console.log(transformedIngredients);
 
   return (
     <div className={classes.Burger}>
