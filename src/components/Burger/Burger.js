@@ -4,6 +4,8 @@ import classes from './Burger.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 const burger = (props) => {
+
+  /*
   // This is a nested loop. We map over each element in ["salad", "bacon", "cheese", "meat"],
   // returning an array with undefined elements for each one. The nested map (loop) runs on
   // the array created for 'salad' before the outer .map runs on 'bacon' and so on. Therefore
@@ -20,15 +22,25 @@ const burger = (props) => {
     // On each loop it returns the container array with the nested array merged into it
     // i.e. moves the nested array's elements into the container array. So we end up with 
     // a single array of JSX objects rather than an array of arrays containing JSX objects.
+    // This 'flattening' of the array allows us to check its length below (if it wasn't 
+    // 'flattened' the length would be 4 even if there's nothing in each of the 4 sub-arrays).
     .reduce((arr, el) => {
       return arr.concat(el)
     }, []);
+    */
+
+    // A much simpler way to generate the transformedIngredients
+    let transformedIngredients = [];
+
+    for (let key in props.ingredients) {
+      for (let i = 0; i < props.ingredients[key]; i++) {
+        transformedIngredients.push(<BurgerIngredient key={key + i} type={key} />)
+      }
+    }
 
     if (transformedIngredients.length === 0) {
       transformedIngredients = <p>Please start adding ingredients</p>
     }
-
-    console.log(transformedIngredients);
 
   return (
     <div className={classes.Burger}>
