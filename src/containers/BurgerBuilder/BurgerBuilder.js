@@ -12,6 +12,10 @@ const INGREDIENT_PRICES = {
 }
 
 class BurgerBuilder extends Component {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {...}
+  // }
 
   state = {
     ingredients: {
@@ -20,7 +24,22 @@ class BurgerBuilder extends Component {
       cheese: 0,
       meat: 0
     },
-    totalPrice: 4
+    totalPrice: 4,
+    purchaseable: false
+  }
+
+  updatePurchaseState = (ingredients) => {
+    // Get an array of the object keys.
+    // Use them to get an array of the associated values (counts of each ingredient).
+    // Add the counts (numbers) up and return the total (the sum!).
+    const sum = Object.keys(ingredients)
+      .map(ingKey => {
+        return ingredients[ingKey]
+      })
+      .reduce((sum, el) => {
+        return sum + el;
+      }, 0);
+      this.setState({purchaseable: sum > 0});
   }
 
   addIngredientHandler = (type) => {
@@ -35,7 +54,8 @@ class BurgerBuilder extends Component {
     this.setState({
       totalPrice: newPrice,
       ingredients: updatedIngredients
-    })
+    });
+    this.updatePurchaseState(updatedIngredients);
   }
 
   removeIngredientHandler = (type) => {
@@ -51,7 +71,8 @@ class BurgerBuilder extends Component {
     this.setState({
       totalPrice: newPrice,
       ingredients: updatedIngredients
-    })
+    });
+    this.updatePurchaseState(updatedIngredients);
   }
   
   render() {
@@ -70,6 +91,7 @@ class BurgerBuilder extends Component {
         <BuildControls 
           ingredientAdded={this.addIngredientHandler}
           ingredientRemoved={this.removeIngredientHandler}
+          purchaseable={this.state.purchaseable}
           disabled={disabledInfo}
           price={this.state.totalPrice}
         />
