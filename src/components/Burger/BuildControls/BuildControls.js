@@ -25,7 +25,8 @@ const buildControls = (props) => (
     ))}
     <button 
       className={classes.OrderButton}
-      disabled={!props.purchaseable} // set the disabled html property to true or false
+      // set the disabled html property to true or false if no ingredients have been added
+      disabled={!props.purchaseable} 
       >ORDER NOW</button>
   </div>
 );

@@ -3,6 +3,8 @@ import React, {Component} from 'react';
 import Aux from '../../hoc/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 
 const INGREDIENT_PRICES = {
   salad: 0.5,
@@ -28,6 +30,7 @@ class BurgerBuilder extends Component {
     purchaseable: false
   }
 
+  /*
   updatePurchaseState = (ingredients) => {
     // Get an array of the object keys.
     // Use them to get an array of the associated values (counts of each ingredient).
@@ -40,6 +43,13 @@ class BurgerBuilder extends Component {
         return sum + el;
       }, 0);
       this.setState({purchaseable: sum > 0});
+  }
+  */
+
+  // Simpler way to check if burger can be ordered (i.e. has at least one ingredient)
+  updatePurchaseState = (ingredients) => {
+      const atLeastOneIngredient = Object.values(ingredients).some(amount => amount > 0);
+      this.setState({purchaseable: atLeastOneIngredient});
   }
 
   addIngredientHandler = (type) => {
@@ -87,6 +97,9 @@ class BurgerBuilder extends Component {
 
     return (
       <Aux>
+        <Modal>
+          <OrderSummary ingredients={this.state.ingredients} />
+        </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls 
           ingredientAdded={this.addIngredientHandler}
