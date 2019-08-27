@@ -27,7 +27,8 @@ class BurgerBuilder extends Component {
       meat: 0
     },
     totalPrice: 4,
-    purchaseable: false
+    purchaseable: false,
+    purchasing: false
   }
 
   /*
@@ -47,7 +48,7 @@ class BurgerBuilder extends Component {
   */
 
   // Simpler way to check if burger can be ordered (i.e. has at least one ingredient)
-  updatePurchaseState = (ingredients) => {
+  updatePurchaseState (ingredients) {
       const atLeastOneIngredient = Object.values(ingredients).some(amount => amount > 0);
       this.setState({purchaseable: atLeastOneIngredient});
   }
@@ -84,8 +85,14 @@ class BurgerBuilder extends Component {
     });
     this.updatePurchaseState(updatedIngredients);
   }
+
+  // The arrow function binds 'this' to the class. If you used an ES5 style function
+  // you'd have to bind 'this' (e.g. this.purchaseHandler = this.purchaseHandler(this))
+  purchaseHandler = () => {
+    this.setState({purchasing: true})
+  }
   
-  render() {
+  render () {
     const disabledInfo = {
       ...this.state.ingredients
     }
@@ -97,7 +104,7 @@ class BurgerBuilder extends Component {
 
     return (
       <Aux>
-        <Modal>
+        <Modal show={this.state.purchasing}>
           <OrderSummary ingredients={this.state.ingredients} />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
@@ -107,6 +114,7 @@ class BurgerBuilder extends Component {
           purchaseable={this.state.purchaseable}
           disabled={disabledInfo}
           price={this.state.totalPrice}
+          ordered={this.purchaseHandler}
         />
       </Aux>
     );
