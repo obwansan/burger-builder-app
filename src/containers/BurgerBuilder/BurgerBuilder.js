@@ -87,9 +87,13 @@ class BurgerBuilder extends Component {
   }
 
   // The arrow function binds 'this' to the class. If you used an ES5 style function
-  // you'd have to bind 'this' (e.g. this.purchaseHandler = this.purchaseHandler(this))
+  // you'd have to bind 'this' (e.g. this.purchaseHandler = this.purchaseHandler.bind(this))
   purchaseHandler = () => {
-    this.setState({purchasing: true})
+    this.setState({purchasing: true});
+  }
+
+  purchaseCancelHandler = () => {
+    this.setState({purchasing: false});
   }
   
   render () {
@@ -104,7 +108,10 @@ class BurgerBuilder extends Component {
 
     return (
       <Aux>
-        <Modal show={this.state.purchasing}>
+        <Modal 
+          show={this.state.purchasing}
+          modalClosed={this.purchaseCancelHandler}
+        >
           <OrderSummary ingredients={this.state.ingredients} />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
