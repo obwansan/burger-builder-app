@@ -1,0 +1,13 @@
+.Logo {
+  background-color: #ffffff;
+  padding: 8px;
+  /* So the logo scales to height of parent Toolbar element */
+  height: 80%;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.Logo img {
+  /* So the image scales to height of parent Logo element */
+  height: 100%;
+}
