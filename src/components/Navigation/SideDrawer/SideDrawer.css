@@ -12,6 +12,7 @@
   transition: transform 0.3s ease-out;
 }
 
+/* if screen size is more than 500px wide, don't display SideDrawer */
 @media (min-width: 500px) {
   .SideDrawer {
     display: none;
@@ -24,4 +25,10 @@
 
 .Closed {
   transform: translateX(-100);
+}
+
+/* CSS modules' unique class naming means this won't clash with .Logo in Toolbar.css and Logo.css */
+.Logo {
+  height: 11%;
+  margin-bottom: 32px;
 }

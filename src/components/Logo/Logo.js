@@ -6,7 +6,8 @@ import classes from './Logo.css';
 import BurgerLogo from '../../assets/burger-logo.png';
 
 const logo = (props) => (
-  <div className={classes.Logo}>
+  // Not using the inline style here, but could
+  <div className={classes.Logo} style={{height: props.height}}>
     <img src={BurgerLogo} alt="BurgerLogo" />
   </div>
 );

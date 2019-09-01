@@ -7,8 +7,11 @@ import classes from './SideDrawer.css';
 const sideDrawer = (props) => {
 
   return (
-    <div className={classes.sideDrawer}>
-      <Logo />
+    <div className={classes.SideDrawer}>
+      <div className={classes.Logo}>
+        <Logo />
+      </div>
+      {/* Same NavigationItems in the Toolbar */}
       <nav>
         <NavigationItems />
       </nav>

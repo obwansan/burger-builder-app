@@ -1,8 +1,9 @@
+/* CSS modules' unique class naming means this won't clash with .Logo in SideDrawer.css and Toolbar.css */
 .Logo {
   background-color: #ffffff;
   padding: 8px;
   /* So the logo scales to height of parent Toolbar element */
-  height: 80%;
+  height: 100%;
   box-sizing: border-box;
   border-radius: 5px;
 }

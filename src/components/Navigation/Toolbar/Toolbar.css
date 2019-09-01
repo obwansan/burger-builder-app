@@ -16,3 +16,14 @@
 .Toolbar nav {
   height: 100%;
 }
+
+/* CSS modules' unique class naming means this won't clash with .Logo in SideDrawer.css and Logo.css */
+.Logo {
+  height: 80%;
+}
+
+@media (max-width: 499px) {
+  .DesktopOnly {
+    display: none;
+  }
+}
