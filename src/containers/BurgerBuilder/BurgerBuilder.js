@@ -56,6 +56,7 @@ class BurgerBuilder extends Component {
   addIngredientHandler = (type) => {
     const oldCount = this.state.ingredients[type];
     const updatedCount = oldCount + 1;
+    // Get a copy of this.state.ingredients (an object)
     const updatedIngredients = {...this.state.ingredients};
     updatedIngredients[type] = updatedCount;
 
