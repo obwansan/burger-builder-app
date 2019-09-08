@@ -6,8 +6,7 @@ import classes from './SideDrawer.css';
 import Backdrop from '../../UI/Backdrop/Backdrop';
 import Aux from '../../../hoc/Aux';
 
-const sideDrawer = (props) => {
-
+const sideDrawer = props => {
   // The sideDrawer's position is opened and closed using classes,
   // that are determined by props.open
   let attachedClasses = [classes.SideDrawer, classes.Close];
@@ -17,10 +16,7 @@ const sideDrawer = (props) => {
 
   return (
     <Aux>
-      <Backdrop 
-        showSideDrawer={props.open} 
-        clicked={props.toggle} 
-      />
+      <Backdrop showSideDrawer={props.open} clicked={props.close} />
       <div className={attachedClasses.join(' ')}>
         <div className={classes.Logo}>
           <Logo />
@@ -31,7 +27,7 @@ const sideDrawer = (props) => {
         </nav>
       </div>
     </Aux>
-  )
+  );
 };
 
 export default sideDrawer;
