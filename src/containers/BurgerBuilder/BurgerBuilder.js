@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-import Aux from '../../hoc/Aux';
+import Aux from '../../hoc/Aux/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
@@ -11,7 +11,7 @@ const INGREDIENT_PRICES = {
   cheese: 0.4,
   meat: 1.3,
   bacon: 0.7
-}
+};
 
 class BurgerBuilder extends Component {
   // constructor(props) {
@@ -29,7 +29,7 @@ class BurgerBuilder extends Component {
     totalPrice: 0,
     purchaseable: false,
     purchasing: false
-  }
+  };
 
   /*
   updatePurchaseState = (ingredients) => {
@@ -48,16 +48,18 @@ class BurgerBuilder extends Component {
   */
 
   // Simpler way to check if burger can be ordered (i.e. has at least one ingredient)
-  updatePurchaseState (ingredients) {
-      const atLeastOneIngredient = Object.values(ingredients).some(amount => amount > 0);
-      this.setState({purchaseable: atLeastOneIngredient});
+  updatePurchaseState(ingredients) {
+    const atLeastOneIngredient = Object.values(ingredients).some(
+      amount => amount > 0
+    );
+    this.setState({ purchaseable: atLeastOneIngredient });
   }
 
-  addIngredientHandler = (type) => {
+  addIngredientHandler = type => {
     const oldCount = this.state.ingredients[type];
     const updatedCount = oldCount + 1;
     // Get a copy of this.state.ingredients (an object)
-    const updatedIngredients = {...this.state.ingredients};
+    const updatedIngredients = { ...this.state.ingredients };
     updatedIngredients[type] = updatedCount;
 
     const priceAddition = INGREDIENT_PRICES[type];
@@ -68,13 +70,13 @@ class BurgerBuilder extends Component {
       ingredients: updatedIngredients
     });
     this.updatePurchaseState(updatedIngredients);
-  }
+  };
 
-  removeIngredientHandler = (type) => {
+  removeIngredientHandler = type => {
     const oldCount = this.state.ingredients[type];
-    if (oldCount <= 0) return ;
+    if (oldCount <= 0) return;
     const updatedCount = oldCount - 1;
-    const updatedIngredients = {...this.state.ingredients};
+    const updatedIngredients = { ...this.state.ingredients };
     updatedIngredients[type] = updatedCount;
 
     const priceDeduction = INGREDIENT_PRICES[type];
@@ -85,26 +87,26 @@ class BurgerBuilder extends Component {
       ingredients: updatedIngredients
     });
     this.updatePurchaseState(updatedIngredients);
-  }
+  };
 
   // The arrow function binds 'this' to the class. If you used an ES5 style function
   // you'd have to bind 'this' (e.g. this.purchaseHandler = this.purchaseHandler.bind(this))
   purchaseHandler = () => {
-    this.setState({purchasing: true});
-  }
+    this.setState({ purchasing: true });
+  };
 
   purchaseCancelHandler = () => {
-    this.setState({purchasing: false});
-  }
+    this.setState({ purchasing: false });
+  };
 
   purchaseContinueHandler = () => {
     alert('You continue!');
-  }
-  
-  render () {
+  };
+
+  render() {
     const disabledInfo = {
       ...this.state.ingredients
-    }
+    };
     // Set the ingredient's value to true (i.e. is disabled) if no ingredient.
     // Set to false if one or more ingredients.
     for (let key in disabledInfo) {
@@ -113,19 +115,19 @@ class BurgerBuilder extends Component {
 
     return (
       <Aux>
-        <Modal 
+        <Modal
           show={this.state.purchasing}
           modalClosed={this.purchaseCancelHandler}
         >
-          <OrderSummary 
+          <OrderSummary
             ingredients={this.state.ingredients}
-            price={this.state.totalPrice.toFixed(2)} 
+            price={this.state.totalPrice.toFixed(2)}
             purchaseCancelled={this.purchaseCancelHandler}
             purchaseContinued={this.purchaseContinueHandler}
           />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
-        <BuildControls 
+        <BuildControls
           ingredientAdded={this.addIngredientHandler}
           ingredientRemoved={this.removeIngredientHandler}
           purchaseable={this.state.purchaseable}
